@@ -81,6 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input type="submit" value="Nahrát soubor" name="submit">
     </form>
+
+    <br>
+    <a href="../index.php">Zpět na úvodní stránku</a>
 </body>
 
 </html>
