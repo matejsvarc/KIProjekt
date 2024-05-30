@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <Hraci>
+        <Hrac>
+            <jmeno>Lebron</jmeno>
+            <prijmeni>James</prijmeni>
+            <ID_tym>1</ID_tym>
+            <ID_kontrakt>100</ID_kontrakt>
+            <ID_statistiky>200</ID_statistiky>
+        </Hrac>
+        <Hrac>
+            <jmeno>Kevin</jmeno>
+            <prijmeni>Durant</prijmeni>
+            <!-- Chybí element ID_tym -->
+            <ID_kontrakt>101</ID_kontrakt>
+            <ID_statistiky>201</ID_statistiky>
+        </Hrac>
+    </Hraci>
+    <Tymy>
+        <Tym>
+            <nazev>Lakers</nazev>
+            <datum_zalozeni>1945-01-02</datum_zalozeni>
+            <mesto>Los Angeles</mesto>
+        </Tym>
+        <Tym>
+            <nazev>Suns</nazev>
+            <datum_zalozeni>1965-01-02</datum_zalozeni>
+            <mesto>Phoenix</mesto>
+        </Tym>
+    </Tymy>
+</data>

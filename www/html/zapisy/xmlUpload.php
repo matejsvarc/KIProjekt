@@ -36,27 +36,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             handleError("Nepodařilo se připojit k databázi: " . $conn->connect_error);
         }
 
-        // Příprava dotazu pro vložení dat do databáze
-        $stmt = $conn->prepare("INSERT INTO Hraci (jmeno, prijmeni, ID_tym, ID_kontrakt, ID_statistiky) VALUES (?, ?, ?, ?, ?)");
+        // Příprava dotazů pro vložení dat do databáze
+        $stmtHraci = $conn->prepare("INSERT INTO Hraci (jmeno, prijmeni, ID_tym, ID_kontrakt, ID_statistiky) VALUES (?, ?, ?, ?, ?)");
+        $stmtTymy = $conn->prepare("INSERT INTO Tymy (nazev, datum_zalozeni, mesto) VALUES (?, ?, ?)");
 
-        // Vložení dat z XML do databáze
-        // (Předpokládáme strukturu XML souboru podobnou databázi)
+        // Načtení XML a vložení dat do databáze
         $xml = simplexml_load_string($xmlContent);
-        foreach ($xml->children() as $hrac) {
-            $jmeno = $hrac->jmeno;
-            $prijmeni = $hrac->prijmeni;
-            $ID_tym = $hrac->ID_tym;
-            $ID_kontrakt = $hrac->ID_kontrakt;
-            $ID_statistiky = $hrac->ID_statistiky;
 
-            $stmt->bind_param("ssiii", $jmeno, $prijmeni, $ID_tym, $ID_kontrakt, $ID_statistiky);
-            if (!$stmt->execute()) {
-                handleError("Chyba při vkládání dat do databáze: " . $stmt->error);
+        // Vložení dat do tabulky Tymy
+        $teams = [];
+        foreach ($xml->Tymy->Tym as $tym) {
+            $nazev = (string)$tym->nazev;
+            $datum_zalozeni = (string)$tym->datum_zalozeni;
+            $mesto = (string)$tym->mesto;
+
+            $stmtTymy->bind_param("sss", $nazev, $datum_zalozeni, $mesto);
+            if (!$stmtTymy->execute()) {
+                handleError("Chyba při vkládání dat do tabulky Tymy: " . $stmtTymy->error);
+            }
+
+            // Získání ID vloženého týmu
+            $teams[] = $conn->insert_id;
+        }
+
+        // Vložení dat do tabulky Hraci
+        foreach ($xml->Hraci->Hrac as $hrac) {
+            $jmeno = (string)$hrac->jmeno;
+            $prijmeni = (string)$hrac->prijmeni;
+            $index_tymu = ((int)$hrac->ID_tym) - 1; // Předpokládáme, že ID_tym je index týmu v poli $teams
+            if (!isset($teams[$index_tymu])) {
+                handleError("Neplatný ID_tym: " . $hrac->ID_tym);
+            }
+            $ID_tym = $teams[$index_tymu];
+            $ID_kontrakt = (int)$hrac->ID_kontrakt;
+            $ID_statistiky = (int)$hrac->ID_statistiky;
+
+            $stmtHraci->bind_param("ssiii", $jmeno, $prijmeni, $ID_tym, $ID_kontrakt, $ID_statistiky);
+            if (!$stmtHraci->execute()) {
+                handleError("Chyba při vkládání dat do tabulky Hraci: " . $stmtHraci->error);
             }
         }
 
         // Uzavření spojení s databází
-        $stmt->close();
+        $stmtHraci->close();
+        $stmtTymy->close();
         $conn->close();
 
         echo "<p>Data byla úspěšně nahrána do databáze.</p>";
@@ -66,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 
 <head>
     <meta charset="UTF-8">
@@ -81,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input type="submit" value="Nahrát soubor" name="submit">
     </form>
-
     <br>
     <a href="../index.php">Zpět na úvodní stránku</a>
 </body>

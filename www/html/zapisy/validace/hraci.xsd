@@ -1,18 +1,38 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:element name="Hraci">
+    <xs:element name="data">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Hrac">
+                <xs:element name="Hraci">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ID" type="xs:int" />
-                            <xs:element name="jmeno" type="xs:string" />
-                            <xs:element name="prijmeni" type="xs:string" />
-                            <xs:element name="ID_tym" type="xs:int" />
-                            <xs:element name="ID_kontrakt" type="xs:int" />
-                            <xs:element name="ID_statistiky" type="xs:int" />
+                            <xs:element name="Hrac" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="jmeno" type="xs:string" />
+                                        <xs:element name="prijmeni" type="xs:string" />
+                                        <xs:element name="ID_tym" type="xs:int" />
+                                        <xs:element name="ID_kontrakt" type="xs:int" />
+                                        <xs:element name="ID_statistiky" type="xs:int" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Tymy">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Tym" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nazev" type="xs:string" />
+                                        <xs:element name="datum_zalozeni" type="xs:date" />
+                                        <xs:element name="mesto" type="xs:string" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
