@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="Hraci">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Hrac">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ID" type="xs:int" />
+                            <xs:element name="jmeno" type="xs:string" />
+                            <xs:element name="prijmeni" type="xs:string" />
+                            <xs:element name="ID_tym" type="xs:int" />
+                            <xs:element name="ID_kontrakt" type="xs:int" />
+                            <xs:element name="ID_statistiky" type="xs:int" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
