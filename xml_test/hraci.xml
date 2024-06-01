@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data>
-    <Hraci>
-        <Hrac>
-            <jmeno>Lebron</jmeno>
-            <prijmeni>James</prijmeni>
-            <ID_tym>1</ID_tym>
-            <ID_kontrakt>100</ID_kontrakt>
-            <ID_statistiky>200</ID_statistiky>
-        </Hrac>
-        <Hrac>
-            <jmeno>Kevin</jmeno>
-            <prijmeni>Durant</prijmeni>
-            <ID_tym>2</ID_tym>
-            <ID_kontrakt>101</ID_kontrakt>
-            <ID_statistiky>201</ID_statistiky>
-        </Hrac>
-    </Hraci>
+<Data>
     <Tymy>
         <Tym>
             <nazev>Lakers</nazev>
@@ -28,4 +12,58 @@
             <mesto>Phoenix</mesto>
         </Tym>
     </Tymy>
-</data>
+    <Hraci>
+        <Hrac>
+            <jmeno>John</jmeno>
+            <prijmeni>Doe</prijmeni>
+            <ID_tym>1</ID_tym>
+            <ID_kontrakt>1</ID_kontrakt>
+            <ID_statistiky>1</ID_statistiky>
+        </Hrac>
+        <Hrac>
+            <jmeno>Jane</jmeno>
+            <prijmeni>Doe</prijmeni>
+            <ID_tym>2</ID_tym>
+            <ID_kontrakt>2</ID_kontrakt>
+            <ID_statistiky>2</ID_statistiky>
+        </Hrac>
+    </Hraci>
+    <Kontrakty>
+        <Kontrakt>
+            <Castka>1000000</Castka>
+            <zacatek>2024-01-01</zacatek>
+            <konec>2026-01-01</konec>
+        </Kontrakt>
+        <Kontrakt>
+            <Castka>800000</Castka>
+            <zacatek>2024-01-01</zacatek>
+            <konec>2025-01-01</konec>
+        </Kontrakt>
+    </Kontrakty>
+    <Statistiky>
+        <Statistika>
+            <ID_zapasu>1</ID_zapasu>
+            <body>20</body>
+            <asistence>10</asistence>
+            <doskoky>5</doskoky>
+        </Statistika>
+        <Statistika>
+            <ID_zapasu>2</ID_zapasu>
+            <body>15</body>
+            <asistence>5</asistence>
+            <doskoky>8</doskoky>
+        </Statistika>
+    </Statistiky>
+    <Zapasy>
+        <Zapas>
+            <ID_hrace>1</ID_hrace>
+            <ID_statistiky>1</ID_statistiky>
+            <datum>2024-05-15</datum>
+        </Zapas>
+        <Zapas>
+            <ID_hrace>2</ID_hrace>
+            <ID_statistiky>2</ID_statistiky>
+            <datum>2024-05-20</datum>
+        </Zapas>
+    </Zapasy>
+</Data>

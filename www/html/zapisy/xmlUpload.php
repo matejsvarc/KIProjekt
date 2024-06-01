@@ -36,50 +36,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             handleError("Nepodařilo se připojit k databázi: " . $conn->connect_error);
         }
 
-        // Příprava dotazů pro vložení dat do databáze
-        $stmtHraci = $conn->prepare("INSERT INTO Hraci (jmeno, prijmeni, ID_tym, ID_kontrakt, ID_statistiky) VALUES (?, ?, ?, ?, ?)");
-        $stmtTymy = $conn->prepare("INSERT INTO Tymy (nazev, datum_zalozeni, mesto) VALUES (?, ?, ?)");
-
-        // Načtení XML a vložení dat do databáze
+        // Načtení XML dat
         $xml = simplexml_load_string($xmlContent);
 
-        // Vložení dat do tabulky Tymy
-        $teams = [];
+        // Vložení týmů
+        $stmtTeam = $conn->prepare("INSERT INTO Tymy (nazev, datum_zalozeni, mesto) VALUES (?, ?, ?)");
         foreach ($xml->Tymy->Tym as $tym) {
-            $nazev = (string)$tym->nazev;
-            $datum_zalozeni = (string)$tym->datum_zalozeni;
-            $mesto = (string)$tym->mesto;
-
-            $stmtTymy->bind_param("sss", $nazev, $datum_zalozeni, $mesto);
-            if (!$stmtTymy->execute()) {
-                handleError("Chyba při vkládání dat do tabulky Tymy: " . $stmtTymy->error);
+            $stmtTeam->bind_param("sss", $tym->nazev, $tym->datum_zalozeni, $tym->mesto);
+            if (!$stmtTeam->execute()) {
+                handleError("Chyba při vkládání týmu do databáze: " . $stmtTeam->error);
             }
-
-            // Získání ID vloženého týmu
-            $teams[] = $conn->insert_id;
         }
+        $stmtTeam->close();
 
-        // Vložení dat do tabulky Hraci
+        // Vložení kontraktů
+        $stmtContract = $conn->prepare("INSERT INTO Kontrakty (Castka, zacatek, konec) VALUES (?, ?, ?)");
+        foreach ($xml->Kontrakty->Kontrakt as $kontrakt) {
+            $stmtContract->bind_param("iss", $kontrakt->Castka, $kontrakt->zacatek, $kontrakt->konec);
+            if (!$stmtContract->execute()) {
+                handleError("Chyba při vkládání kontraktu do databáze: " . $stmtContract->error);
+            }
+        }
+        $stmtContract->close();
+
+        $stmtStats = $conn->prepare("INSERT INTO statistiky (ID_zapasu, body, asistence, doskoky) VALUES (?, ?, ?, ?)");
+        foreach ($xml->Statistiky->Statistika as $stat) {
+            $stmtStats->bind_param("iiii", $stat->ID_zapasu, $stat->body, $stat->asistence, $stat->doskoky);
+            if (!$stmtStats->execute()) {
+                handleError("Chyba při vkládání statistik do databáze: " . $stmtStats->error);
+            }
+        }
+        $stmtStats->close();
+        // Vložení hráčů
+        $stmtPlayer = $conn->prepare("INSERT INTO Hraci (jmeno, prijmeni, ID_tym, ID_kontrakt, ID_statistiky) VALUES (?, ?, ?, ?, ?)");
         foreach ($xml->Hraci->Hrac as $hrac) {
-            $jmeno = (string)$hrac->jmeno;
-            $prijmeni = (string)$hrac->prijmeni;
-            $index_tymu = ((int)$hrac->ID_tym) - 1; // Předpokládáme, že ID_tym je index týmu v poli $teams
-            if (!isset($teams[$index_tymu])) {
-                handleError("Neplatný ID_tym: " . $hrac->ID_tym);
-            }
-            $ID_tym = $teams[$index_tymu];
-            $ID_kontrakt = (int)$hrac->ID_kontrakt;
-            $ID_statistiky = (int)$hrac->ID_statistiky;
-
-            $stmtHraci->bind_param("ssiii", $jmeno, $prijmeni, $ID_tym, $ID_kontrakt, $ID_statistiky);
-            if (!$stmtHraci->execute()) {
-                handleError("Chyba při vkládání dat do tabulky Hraci: " . $stmtHraci->error);
+            $stmtPlayer->bind_param("ssiii", $hrac->jmeno, $hrac->prijmeni, $hrac->ID_tym, $hrac->ID_kontrakt, $hrac->ID_statistiky);
+            if (!$stmtPlayer->execute()) {
+                handleError("Chyba při vkládání hráče do databáze: " . $stmtPlayer->error);
             }
         }
+        $stmtPlayer->close();
+
+        // Vložení zápasů
+        $stmtMatch = $conn->prepare("INSERT INTO Zapasy (ID_hrace, ID_statistiky, datum) VALUES (?, ?, ?)");
+        foreach ($xml->Zapasy->Zapas as $zapas) {
+            $stmtMatch->bind_param("iis", $zapas->ID_hrace, $zapas->ID_statistiky, $zapas->datum);
+            if (!$stmtMatch->execute()) {
+                handleError("Chyba při vkládání zápasu do databáze: " . $stmtMatch->error);
+            }
+        }
+        $stmtMatch->close();
 
         // Uzavření spojení s databází
-        $stmtHraci->close();
-        $stmtTymy->close();
         $conn->close();
 
         echo "<p>Data byla úspěšně nahrána do databáze.</p>";
@@ -89,23 +97,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nahrát XML soubor</title>
+    <title>Nahrávání XML souborů</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>Nahrát XML soubor</h1>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-        Vyberte XML soubor k nahrání:
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="submit" value="Nahrát soubor" name="submit">
-    </form>
-    <br>
-    <a href="../index.php">Zpět na úvodní stránku</a>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-8">
+        <div class="max-w-md mx-auto bg-white shadow-md overflow-hidden rounded-md">
+            <div class="bg-blue-500 text-white py-4 px-6">
+                <h3 class="text-xl font-semibold text-center">Nahrávání XML souborů</h3>
+            </div>
+            <div class="p-6">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="fileToUpload" class="block text-gray-700 font-semibold mb-2">Vyberte XML soubor:</label>
+                        <input type="file" id="fileToUpload" name="fileToUpload" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Nahrát soubor</button>
+                </form>
+                <div class="mt-4">
+                    <a href="../index.php" class="text-blue-500 hover:underline">Zpět</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -1,26 +1,9 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:element name="data">
+    <xs:element name="Data">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Hraci">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="Hrac" maxOccurs="unbounded">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="jmeno" type="xs:string" />
-                                        <xs:element name="prijmeni" type="xs:string" />
-                                        <xs:element name="ID_tym" type="xs:int" />
-                                        <xs:element name="ID_kontrakt" type="xs:int" />
-                                        <xs:element name="ID_statistiky" type="xs:int" />
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
                 <xs:element name="Tymy">
                     <xs:complexType>
                         <xs:sequence>
@@ -36,6 +19,74 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
+
+                <xs:element name="Hraci">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Hrac" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="jmeno" type="xs:string" />
+                                        <xs:element name="prijmeni" type="xs:string" />
+                                        <xs:element name="ID_tym" type="xs:integer" />
+                                        <xs:element name="ID_kontrakt" type="xs:integer" />
+                                        <xs:element name="ID_statistiky" type="xs:integer" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Kontrakty">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Kontrakt" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Castka" type="xs:integer" />
+                                        <xs:element name="zacatek" type="xs:date" />
+                                        <xs:element name="konec" type="xs:date" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Statistiky">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Statistika" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ID_zapasu" type="xs:integer" />
+                                        <xs:element name="body" type="xs:integer" />
+                                        <xs:element name="asistence" type="xs:integer" />
+                                        <xs:element name="doskoky" type="xs:integer" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Zapasy">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Zapas" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ID_hrace" type="xs:integer" />
+                                        <xs:element name="ID_statistiky" type="xs:integer" />
+                                        <xs:element name="datum" type="xs:date" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
             </xs:sequence>
         </xs:complexType>
     </xs:element>
