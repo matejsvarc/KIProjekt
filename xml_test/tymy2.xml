@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tymy>
+    <tym>
+        <nazev>Miami Heat</nazev>
+        <datum_zalozeni>1988-04-22</datum_zalozeni>
+        <mesto>Miami</mesto>
+    </tym>
+    <tym>
+        <nazev>Golden State Warriors</nazev>
+        <datum_zalozeni>1946-06-06</datum_zalozeni>
+        <mesto>San Francisco</mesto>
+    </tym>
+    <tym>
+        <nazev>Toronto Raptors</nazev>
+        <datum_zalozeni>1995-11-04</datum_zalozeni>
+        <mesto>Toronto</mesto>
+    </tym>
+</tymy>

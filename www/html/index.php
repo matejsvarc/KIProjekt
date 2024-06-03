@@ -2,46 +2,27 @@
 require '../prolog.php';
 require INC . '/database.php';
 
-// Funkce pro generování XML
-function generateXML($conn, $tableName)
+// Funkce pro získání dat z databáze
+function getPlayersAndTeams($conn)
 {
-  $xml = new DOMDocument('1.0', 'UTF-8');
-  $xml->formatOutput = true;
-
-  $root = $xml->createElement($tableName);
-  $xml->appendChild($root);
-
-  $sql = "SELECT * FROM $tableName";
+  $sql = "SELECT Hraci.jmeno AS jmeno_hrace, Hraci.prijmeni AS prijmeni_hrace, Tymy.nazev AS nazev_tymu,
+            Hraci.body, Hraci.asistence, Hraci.doskoky
+            FROM Hraci
+            INNER JOIN Tymy ON Hraci.ID_tym = Tymy.ID";
   $result = $conn->query($sql);
 
+  $data = array();
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-      $entry = $xml->createElement("entry");
-      foreach ($row as $column => $value) {
-        $node = $xml->createElement($column, htmlspecialchars($value));
-        $entry->appendChild($node);
-      }
-      $root->appendChild($entry);
+      $data[] = $row;
     }
   }
 
-  return $xml->saveXML();
+  return $data;
 }
 
-// Generování XML pro každou tabulku
-$tables = ['Hraci', 'Kontrakty', 'statistiky', 'Tymy', 'Zapasy'];
-$xmlOutput = new DOMDocument('1.0', 'UTF-8');
-$root = $xmlOutput->createElement('database');
-$xmlOutput->appendChild($root);
-
-foreach ($tables as $table) {
-  $tableXML = new DOMDocument();
-  $tableXML->loadXML(generateXML($conn, $table));
-  $root->appendChild($xmlOutput->importNode($tableXML->documentElement, true));
-}
-
-// Uložení XML do souboru
-$xmlOutput->save('database.xml');
+// Získání dat
+$playersAndTeams = getPlayersAndTeams($conn);
 
 // Uzavření spojení s databází
 $conn->close();
@@ -53,44 +34,57 @@ $conn->close();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Výpis dat z databáze</title>
+  <title>Výpis hráčů a týmů</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 
 <body>
+
   <div class="container">
-    <h1>Výpis dat z databáze</h1>
-    <a href="zapisy/xmlUpload.php" style="text-decoration: none; color: #007bff;">XML Upload</a>
-    <a href="zapisy/insertPlayer.php" style="text-decoration: none; color: #007bff; position:relative; left:2rem">Insert Player</a>
-
-    <!-- Zde se načte a zobrazí XML pomocí XSL -->
-    <div id="data-output"></div>
+    <h1>Výpis hráčů a týmů</h1>
+    <button><a href="zapisy/xmlUploadHraci.php">Zapis Hráči</a></button>
+    <button><a href="zapisy/xmlUploadTymy.php">Zapis Týmy</a></button>
+    <table>
+      <thead>
+        <tr>
+          <th>Jméno hráče</th>
+          <th>Příjmení hráče</th>
+          <th>Název týmu</th>
+          <th>Body</th>
+          <th>Asistence</th>
+          <th>Doskoky</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($playersAndTeams as $playerAndTeam) : ?>
+          <tr>
+            <td><?php echo htmlspecialchars($playerAndTeam['jmeno_hrace']); ?></td>
+            <td><?php echo htmlspecialchars($playerAndTeam['prijmeni_hrace']); ?></td>
+            <td><?php echo htmlspecialchars($playerAndTeam['nazev_tymu']); ?></td>
+            <td><?php echo htmlspecialchars($playerAndTeam['body']); ?></td>
+            <td><?php echo htmlspecialchars($playerAndTeam['asistence']); ?></td>
+            <td><?php echo htmlspecialchars($playerAndTeam['doskoky']); ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', 'database.xml', true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const xsltProcessor = new XSLTProcessor();
-          const xsl = new XMLHttpRequest();
-          xsl.open('GET', 'vypis.xsl', true);
-          xsl.onreadystatechange = function() {
-            if (xsl.readyState === 4 && xsl.status === 200) {
-              const xslDocument = xsl.responseXML;
-              xsltProcessor.importStylesheet(xslDocument);
-
-              const xmlDocument = xhr.responseXML;
-              const resultDocument = xsltProcessor.transformToFragment(xmlDocument, document);
-              document.getElementById('data-output').appendChild(resultDocument);
-            }
-          };
-          xsl.send(null);
-        }
-      };
-      xhr.send(null);
-    });
-  </script>
 </body>
 
 </html>

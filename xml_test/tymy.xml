@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tymy>
+    <tym>
+        <nazev>Los Angeles Lakers</nazev>
+        <datum_zalozeni>1947-01-01</datum_zalozeni>
+        <mesto>Los Angeles</mesto>
+    </tym>
+    <tym>
+        <nazev>Boston Celtics</nazev>
+        <datum_zalozeni>1946-06-06</datum_zalozeni>
+        <mesto>Boston</mesto>
+    </tym>
+    <tym>
+        <nazev>Chicago Bulls</nazev>
+        <datum_zalozeni>1966-01-01</datum_zalozeni>
+        <mesto>Chicago</mesto>
+    </tym>
+</tymy>
