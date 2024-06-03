@@ -113,9 +113,9 @@ $conn->close();
     <div class="container">
         <h1>Úpravy dat</h1>
         <div class="button-container">
-            <a href="../index.php" class="button">Zpět</a>
-            <a href="zapisy/xmlUploadHraci.php" class="button">Zapis Hráči</a>
-            <a href="zapisy/xmlUploadTymy.php" class="button">Zapis Týmy</a>
+            <a href="../index.php   " class="button">Zpět</a>
+            <a href="xmlUploadHraci.php" class="button">Zapis Hráči</a>
+            <a href="xmlUploadTymy.php" class="button">Zapis Týmy</a>
         </div>
         <h2>Hráči</h2>
         <table>
