@@ -17,8 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dom = new DOMDocument();
         $dom->load($xmlFile);
         if (!$dom->schemaValidate($xsdSchema)) {
+            echo "<br>
+            <button><a href='xmlUploadTymy.php'>Zpět</a></button>";
             handleError("XML soubor není validní podle schématu.");
         }
+
 
         // Načtení dat z XML souboru
         $xmlData = simplexml_load_file($xmlFile);

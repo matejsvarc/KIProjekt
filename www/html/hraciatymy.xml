@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<data>
+  <row>
+    <jmeno_hrace>John</jmeno_hrace>
+    <prijmeni_hrace>Doe</prijmeni_hrace>
+    <nazev_tymu>Los Angeles Lakers</nazev_tymu>
+    <body>100</body>
+    <asistence>50</asistence>
+    <doskoky>30</doskoky>
+  </row>
+  <row>
+    <jmeno_hrace>Jane</jmeno_hrace>
+    <prijmeni_hrace>Smith</prijmeni_hrace>
+    <nazev_tymu>Boston Celtics</nazev_tymu>
+    <body>120</body>
+    <asistence>60</asistence>
+    <doskoky>40</doskoky>
+  </row>
+  <row>
+    <jmeno_hrace>Michael</jmeno_hrace>
+    <prijmeni_hrace>Jordan</prijmeni_hrace>
+    <nazev_tymu>Chicago Bulls</nazev_tymu>
+    <body>200</body>
+    <asistence>100</asistence>
+    <doskoky>80</doskoky>
+  </row>
+</data>
