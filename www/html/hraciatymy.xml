@@ -24,4 +24,28 @@
     <asistence>100</asistence>
     <doskoky>80</doskoky>
   </row>
+  <row>
+    <jmeno_hrace>LeBron</jmeno_hrace>
+    <prijmeni_hrace>James</prijmeni_hrace>
+    <nazev_tymu>Miami Heat</nazev_tymu>
+    <body>180</body>
+    <asistence>90</asistence>
+    <doskoky>70</doskoky>
+  </row>
+  <row>
+    <jmeno_hrace>Kobe</jmeno_hrace>
+    <prijmeni_hrace>Bryant</prijmeni_hrace>
+    <nazev_tymu>Golden State Warriors</nazev_tymu>
+    <body>150</body>
+    <asistence>75</asistence>
+    <doskoky>45</doskoky>
+  </row>
+  <row>
+    <jmeno_hrace>Stephen</jmeno_hrace>
+    <prijmeni_hrace>Curry</prijmeni_hrace>
+    <nazev_tymu>Toronto Raptors</nazev_tymu>
+    <body>160</body>
+    <asistence>80</asistence>
+    <doskoky>50</doskoky>
+  </row>
 </data>

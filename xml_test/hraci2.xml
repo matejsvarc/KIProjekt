@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<hraci>
+    <hrac>
+        <jmeno>LeBron</jmeno>
+        <prijmeni>James</prijmeni>
+        <ID_tym>85</ID_tym>
+        <body>180</body>
+        <asistence>90</asistence>
+        <doskoky>70</doskoky>
+    </hrac>
+    <hrac>
+        <jmeno>Kobe</jmeno>
+        <prijmeni>Bryant</prijmeni>
+        <ID_tym>86</ID_tym>
+        <body>150</body>
+        <asistence>75</asistence>
+        <doskoky>45</doskoky>
+    </hrac>
+    <hrac>
+        <jmeno>Stephen</jmeno>
+        <prijmeni>Curry</prijmeni>
+        <ID_tym>87</ID_tym>
+        <body>160</body>
+        <asistence>80</asistence>
+        <doskoky>50</doskoky>
+    </hrac>
+</hraci>

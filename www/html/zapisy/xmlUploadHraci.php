@@ -3,25 +3,28 @@
 function handleError($message)
 {
     echo "<p style='color: red;'>Chyba: $message</p>";
+    echo "<br><button><a href='xmlUploadHraci.php'>Zpět</a></button>";
     exit();
 }
 
 // Kontrola, zda byl odeslán formulář
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kontrola, zda byl nahrán XML soubor
-    if (isset($_FILES["xml_file"])) {
+    if (isset($_FILES["xml_file"]) && $_FILES["xml_file"]["error"] == 0) {
         $xmlFile = $_FILES["xml_file"]["tmp_name"];
 
         // Validace XML pomocí XSD schématu
         $xsdSchema = "validace/hraci.xsd"; // Název XSD souboru
         $dom = new DOMDocument();
-        $dom->load($xmlFile);
-        if (!$dom->schemaValidate($xsdSchema)) {
-            echo "<br>
-            <button><a href='xmlUploadHraci.php'>Zpět</a></button>";
-            handleError("XML soubor není validní podle schématu.");
+
+        // Kontrola, zda je soubor platný XML
+        if (@$dom->load($xmlFile) === false) {
+            handleError("XML soubor není validní XML.");
         }
 
+        if (!$dom->schemaValidate($xsdSchema)) {
+            handleError("XML soubor není validní podle schématu.");
+        }
 
         // Načtení dat z XML souboru
         $xmlData = simplexml_load_file($xmlFile);
@@ -43,13 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 handleError("Nepodařilo se připojit k databázi: " . $conn->connect_error);
             }
 
-            // Příprava dotazu pro vložení týmu do databáze
+            // Příprava dotazu pro vložení hráče do databáze
             $stmt = $conn->prepare("INSERT INTO Hraci (jmeno, prijmeni, ID_tym, body, asistence, doskoky) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("ssiiii", $jmeno, $prijmeni, $ID_tym, $body, $asistence, $doskoky);
 
-            // Vložení dat do tabulky Tymy
+            // Vložení dat do tabulky Hraci
             if (!$stmt->execute()) {
-                handleError("Chyba při vkládání týmu do databáze: " . $stmt->error);
+                handleError("Chyba při vkládání hráče do databáze: " . $stmt->error);
             }
 
             // Uzavření spojení s databází
@@ -57,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conn->close();
         }
 
-        echo "<p>Týmy byly úspěšně zapsány do databáze.</p>";
+        echo "<p>Hráči byli úspěšně zapsáni do databáze.</p>";
     } else {
         handleError("Nahrání XML souboru se nepodařilo.");
     }
