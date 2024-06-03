@@ -3,7 +3,7 @@
     <hrac>
         <jmeno>John</jmeno>
         <prijmeni>Doe</prijmeni>
-        <ID_tym>82</ID_tym>
+        <ID_tym>1</ID_tym>
         <body>100</body>
         <asistence>50</asistence>
         <doskoky>30</doskoky>
@@ -11,7 +11,7 @@
     <hrac>
         <jmeno>Jane</jmeno>
         <prijmeni>Smith</prijmeni>
-        <ID_tym>83</ID_tym>
+        <ID_tym>2</ID_tym>
         <body>120</body>
         <asistence>60</asistence>
         <doskoky>40</doskoky>
@@ -19,7 +19,7 @@
     <hrac>
         <jmeno>Michael</jmeno>
         <prijmeni>Jordan</prijmeni>
-        <ID_tym>84</ID_tym>
+        <ID_tym>3</ID_tym>
         <body>200</body>
         <asistence>100</asistence>
         <doskoky>80</doskoky>

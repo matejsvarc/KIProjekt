@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Načtení dat z XML souboru
         $xmlData = simplexml_load_file($xmlFile);
         foreach ($xmlData->tym as $tym) {
+            $ID = $tym->ID;
             $nazev = $tym->nazev;
             $datum_zalozeni = $tym->datum_zalozeni;
             $mesto = $tym->mesto;
@@ -41,8 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             // Příprava dotazu pro vložení týmu do databáze
-            $stmt = $conn->prepare("INSERT INTO Tymy (nazev, datum_zalozeni, mesto) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $nazev, $datum_zalozeni, $mesto);
+            $stmt = $conn->prepare("INSERT INTO Tymy (ID, nazev, datum_zalozeni, mesto) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("isss", $ID, $nazev, $datum_zalozeni, $mesto);
+
 
             // Vložení dat do tabulky Tymy
             if (!$stmt->execute()) {

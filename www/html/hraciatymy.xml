@@ -3,7 +3,7 @@
   <row>
     <jmeno_hrace>John</jmeno_hrace>
     <prijmeni_hrace>Doe</prijmeni_hrace>
-    <nazev_tymu>Los Angeles Lakers</nazev_tymu>
+    <nazev_tymu>testp</nazev_tymu>
     <body>100</body>
     <asistence>50</asistence>
     <doskoky>30</doskoky>
@@ -11,7 +11,7 @@
   <row>
     <jmeno_hrace>Jane</jmeno_hrace>
     <prijmeni_hrace>Smith</prijmeni_hrace>
-    <nazev_tymu>Boston Celtics</nazev_tymu>
+    <nazev_tymu>dasdasdasdas</nazev_tymu>
     <body>120</body>
     <asistence>60</asistence>
     <doskoky>40</doskoky>
@@ -19,33 +19,9 @@
   <row>
     <jmeno_hrace>Michael</jmeno_hrace>
     <prijmeni_hrace>Jordan</prijmeni_hrace>
-    <nazev_tymu>Miami Heat</nazev_tymu>
+    <nazev_tymu>sadasdasdas</nazev_tymu>
     <body>200</body>
     <asistence>100</asistence>
     <doskoky>80</doskoky>
-  </row>
-  <row>
-    <jmeno_hrace>LeBron</jmeno_hrace>
-    <prijmeni_hrace>James</prijmeni_hrace>
-    <nazev_tymu>Miami Heat</nazev_tymu>
-    <body>180</body>
-    <asistence>90</asistence>
-    <doskoky>70</doskoky>
-  </row>
-  <row>
-    <jmeno_hrace>Kobe</jmeno_hrace>
-    <prijmeni_hrace>Bryant</prijmeni_hrace>
-    <nazev_tymu>Golden State Warriors</nazev_tymu>
-    <body>150</body>
-    <asistence>75</asistence>
-    <doskoky>45</doskoky>
-  </row>
-  <row>
-    <jmeno_hrace>Stephen</jmeno_hrace>
-    <prijmeni_hrace>Curry</prijmeni_hrace>
-    <nazev_tymu>Toronto Raptors</nazev_tymu>
-    <body>160</body>
-    <asistence>80</asistence>
-    <doskoky>50</doskoky>
   </row>
 </data>

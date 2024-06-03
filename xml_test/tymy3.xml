@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tymy>
+    <tym>
+    <ID>1</ID>
+        <nazev>testp</nazev>
+        <datum_zalozeni>1947-01-01</datum_zalozeni>
+        <mesto>Los Angeles</mesto>
+    </tym>
+    <tym>   
+    <ID>2</ID>
+        <nazev>dasdasdasdas</nazev>
+        <datum_zalozeni>1946-06-06</datum_zalozeni>
+        <mesto>Boston</mesto>
+    </tym>
+    <tym>
+        <ID>3</ID>
+        <nazev>sadasdasdas</nazev>
+        <datum_zalozeni>1966-01-01</datum_zalozeni>
+        <mesto>Chicago</mesto>
+    </tym>
+</tymy>

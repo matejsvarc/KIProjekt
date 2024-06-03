@@ -77,6 +77,8 @@
             <a href="zapisy/xmlUploadHraci.php" class="button">Zapis Hráči</a>
             <a href="zapisy/xmlUploadTymy.php" class="button">Zapis Týmy</a>
             <a href="zapisy/xmlUpravy.php" class="button"> Upravy dat </a>
+            <a href="zapisy/addHrac.php" class="button">Vytvoř hrače </a>
+            <a href="zapisy/addTym.php" class="button">Vytvoř tým </a>
           </div>
           <table>
             <thead>

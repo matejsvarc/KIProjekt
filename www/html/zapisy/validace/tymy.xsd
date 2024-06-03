@@ -7,6 +7,7 @@
                 <xs:element name="tym" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
+                            <xs:element name="ID" type="xs:integer"/>
                             <xs:element name="nazev" type="xs:string"/>
                             <xs:element name="datum_zalozeni" type="xs:date"/>
                             <xs:element name="mesto" type="xs:string"/>
