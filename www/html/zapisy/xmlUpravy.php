@@ -6,23 +6,7 @@ $password = "heslo";
 $database = "nba";
 $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
-    handleError("Nepodařilo se připojit k databázi: " . $conn->connect_error);
-}
-// Zpracování úprav a mazání hráčů
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['update_hraci'])) {
-        // Zpracování úpravy hráčů
-        // Implementujte zde kód pro úpravu dat v tabulce Hraci
-    } elseif (isset($_POST['delete_hraci'])) {
-        // Zpracování mazání hráčů
-        // Implementujte zde kód pro mazání dat z tabulky Hraci
-    } elseif (isset($_POST['update_tymy'])) {
-        // Zpracování úpravy týmů
-        // Implementujte zde kód pro úpravu dat v tabulce Tymy
-    } elseif (isset($_POST['delete_tymy'])) {
-        // Zpracování mazání týmů
-        // Implementujte zde kód pro mazání dat z tabulky Tymy
-    }
+    die("Nepodařilo se připojit k databázi: " . $conn->connect_error);
 }
 
 // Získání dat hráčů
@@ -52,15 +36,18 @@ $conn->close();
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            overflow-y: auto;
         }
 
         .container {
-            max-width: 800px;
+            width: 90%;
+            max-width: 1200px;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
         }
 
         h1 {
@@ -74,6 +61,7 @@ $conn->close();
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         th,
@@ -85,6 +73,9 @@ $conn->close();
 
         th {
             background-color: #f5f5f5;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
 
         tr:hover {
@@ -106,6 +97,11 @@ $conn->close();
             border-radius: 5px;
             margin-right: 10px;
         }
+
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 
@@ -113,81 +109,73 @@ $conn->close();
     <div class="container">
         <h1>Úpravy dat</h1>
         <div class="button-container">
-            <a href="../index.php   " class="button">Zpět</a>
             <a href="xmlUploadHraci.php" class="button">Zapis Hráči</a>
             <a href="xmlUploadTymy.php" class="button">Zapis Týmy</a>
+            <a href="../index.php" class="button">Zpět</a>
         </div>
         <h2>Hráči</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Jméno</th>
-                    <th>Příjmení</th>
-                    <th>ID týmu</th>
-                    <th>Body</th>
-                    <th>Asistence</th>
-                    <th>Doskoky</th>
-                    <th>Akce</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $result_hraci->fetch_assoc()) : ?>
+        <div class="table-container">
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo $row['ID']; ?></td>
-                        <td><?php echo $row['jmeno']; ?></td>
-                        <td><?php echo $row['prijmeni']; ?></td>
-                        <td><?php echo $row['ID_tym']; ?></td>
-                        <td><?php echo $row['body']; ?></td>
-                        <td><?php echo $row['asistence']; ?></td>
-                        <td><?php echo $row['doskoky']; ?></td>
-                        <td>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                <input type="hidden" name="update_hraci" value="<?php echo $row['ID']; ?>">
-                                <input type="submit" value="Upravit">
-                            </form>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                <input type="hidden" name="delete_hraci" value="<?php echo $row['ID']; ?>">
-                                <input type="submit" value="Smazat">
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Jméno</th>
+                        <th>Příjmení</th>
+                        <th>ID týmu</th>
+                        <th>Body</th>
+                        <th>Asistence</th>
+                        <th>Doskoky</th>
+                        <th>Akce</th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result_hraci->fetch_assoc()) : ?>
+                        <tr>
+                            <td><?php echo $row['ID']; ?></td>
+                            <td><?php echo $row['jmeno']; ?></td>
+                            <td><?php echo $row['prijmeni']; ?></td>
+                            <td><?php echo $row['ID_tym']; ?></td>
+                            <td><?php echo $row['body']; ?></td>
+                            <td><?php echo $row['asistence']; ?></td>
+                            <td><?php echo $row['doskoky']; ?></td>
+                            <td>
+                                <a href="update_delete/hraci_update.php?id=<?php echo $row['ID']; ?>" class="button">Upravit</a>
+                                <a href="update_delete/hraci_delete.php?id=<?php echo $row['ID']; ?>" class="button">Smazat</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
 
         <h2>Týmy</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Název</th>
-                    <th>Datum založení</th>
-                    <th>Město</th>
-                    <th>Akce</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $result_tymy->fetch_assoc()) : ?>
+        <div class="table-container">
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo $row['ID']; ?></td>
-                        <td><?php echo $row['nazev']; ?></td>
-                        <td><?php echo $row['datum_zalozeni']; ?></td>
-                        <td><?php echo $row['mesto']; ?></td>
-                        <td>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                <input type="hidden" name="update_tymy" value="<?php echo $row['ID']; ?>">
-                                <input type="submit" value="Upravit">
-                            </form>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                <input type="hidden" name="delete_tymy" value="<?php echo $row['ID']; ?>">
-                                <input type="submit" value="Smazat">
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Název</th>
+                        <th>Datum založení</th>
+                        <th>Město</th>
+                        <th>Akce</th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result_tymy->fetch_assoc()) : ?>
+                        <tr>
+                            <td><?php echo $row['ID']; ?></td>
+                            <td><?php echo $row['nazev']; ?></td>
+                            <td><?php echo $row['datum_zalozeni']; ?></td>
+                            <td><?php echo $row['mesto']; ?></td>
+                            <td>
+                                <a href="update_delete/tymy_update.php?id=<?php echo $row['ID']; ?>" class="button">Upravit</a>
+                                <a href="update_delete/tymy_delete.php?id=<?php echo $row['ID']; ?>" class="button">Smazat</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
