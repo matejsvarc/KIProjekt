@@ -4,6 +4,7 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
+
 CREATE TABLE `Hraci` (
   `ID` int NOT NULL,
   `jmeno` varchar(100) NOT NULL,
@@ -52,13 +53,13 @@ ALTER TABLE `Tymy`
 -- AUTO_INCREMENT for table `Hraci`
 --
 ALTER TABLE `Hraci`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Tymy`
 --
 ALTER TABLE `Tymy`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

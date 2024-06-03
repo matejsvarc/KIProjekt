@@ -1,27 +1,35 @@
 <?xml version="1.0"?>
 <data>
   <row>
-    <jmeno_hrace>John</jmeno_hrace>
-    <prijmeni_hrace>Doe</prijmeni_hrace>
-    <nazev_tymu>testp</nazev_tymu>
-    <body>100</body>
-    <asistence>50</asistence>
-    <doskoky>30</doskoky>
+    <jmeno_hrace>LeBron</jmeno_hrace>
+    <prijmeni_hrace>James</prijmeni_hrace>
+    <nazev_tymu>Los Angeles Lakers</nazev_tymu>
+    <body>2500</body>
+    <asistence>800</asistence>
+    <doskoky>1200</doskoky>
   </row>
   <row>
-    <jmeno_hrace>Jane</jmeno_hrace>
-    <prijmeni_hrace>Smith</prijmeni_hrace>
-    <nazev_tymu>dasdasdasdas</nazev_tymu>
-    <body>120</body>
-    <asistence>60</asistence>
-    <doskoky>40</doskoky>
+    <jmeno_hrace>Kevin</jmeno_hrace>
+    <prijmeni_hrace>Durant</prijmeni_hrace>
+    <nazev_tymu>Miami Heat</nazev_tymu>
+    <body>2200</body>
+    <asistence>600</asistence>
+    <doskoky>900</doskoky>
   </row>
   <row>
-    <jmeno_hrace>Michael</jmeno_hrace>
-    <prijmeni_hrace>Jordan</prijmeni_hrace>
-    <nazev_tymu>sadasdasdas</nazev_tymu>
-    <body>200</body>
-    <asistence>100</asistence>
-    <doskoky>80</doskoky>
+    <jmeno_hrace>Stephen</jmeno_hrace>
+    <prijmeni_hrace>Curry</prijmeni_hrace>
+    <nazev_tymu>Golden State Warriors</nazev_tymu>
+    <body>2800</body>
+    <asistence>1000</asistence>
+    <doskoky>500</doskoky>
+  </row>
+  <row>
+    <jmeno_hrace>pepa</jmeno_hrace>
+    <prijmeni_hrace>magorr</prijmeni_hrace>
+    <nazev_tymu>Boston Celtics</nazev_tymu>
+    <body>25</body>
+    <asistence>65</asistence>
+    <doskoky>12</doskoky>
   </row>
 </data>

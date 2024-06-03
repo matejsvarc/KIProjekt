@@ -1,18 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tymy>
+<tymy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="tymy.xsd">
     <tym>
         <nazev>Los Angeles Lakers</nazev>
         <datum_zalozeni>1947-01-01</datum_zalozeni>
         <mesto>Los Angeles</mesto>
     </tym>
     <tym>
-        <nazev>Boston Celtics</nazev>
-        <datum_zalozeni>1946-06-06</datum_zalozeni>
-        <mesto>Boston</mesto>
+        <nazev>Miami Heat</nazev>
+        <datum_zalozeni>1988-04-22</datum_zalozeni>
+        <mesto>Miami</mesto>
+    </tym>
+    <tym>
+        <nazev>Golden State Warriors</nazev>
+        <datum_zalozeni>1946-04-25</datum_zalozeni>
+        <mesto>San Francisco</mesto>
     </tym>
     <tym>
         <nazev>Chicago Bulls</nazev>
-        <datum_zalozeni>1966-01-01</datum_zalozeni>
+        <datum_zalozeni>1966-01-26</datum_zalozeni>
         <mesto>Chicago</mesto>
+    </tym>
+    <tym>
+        <nazev>Boston Celtics</nazev>
+        <datum_zalozeni>1946-06-06</datum_zalozeni>
+        <mesto>Boston</mesto>
     </tym>
 </tymy>

@@ -1,27 +1,27 @@
-<?xml version="1.0"?>
-<hraci>
+<hraci xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="hraci.xsd">
     <hrac>
-        <jmeno>John</jmeno>
-        <prijmeni>Doe</prijmeni>
-        <ID_tym>1</ID_tym>
-        <body>100</body>
-        <asistence>50</asistence>
-        <doskoky>30</doskoky>
+        <jmeno>LeBron</jmeno>
+        <prijmeni>James</prijmeni>
+        <ID_tym>4</ID_tym>
+        <body>2500</body>
+        <asistence>800</asistence>
+        <doskoky>1200</doskoky>
     </hrac>
     <hrac>
-        <jmeno>Jane</jmeno>
-        <prijmeni>Smith</prijmeni>
-        <ID_tym>2</ID_tym>
-        <body>120</body>
-        <asistence>60</asistence>
-        <doskoky>40</doskoky>
+        <jmeno>Kevin</jmeno>
+        <prijmeni>Durant</prijmeni>
+        <ID_tym>5</ID_tym>
+        <body>2200</body>
+        <asistence>600</asistence>
+        <doskoky>900</doskoky>
     </hrac>
     <hrac>
-        <jmeno>Michael</jmeno>
-        <prijmeni>Jordan</prijmeni>
-        <ID_tym>3</ID_tym>
-        <body>200</body>
-        <asistence>100</asistence>
-        <doskoky>80</doskoky>
+        <jmeno>Stephen</jmeno>
+        <prijmeni>Curry</prijmeni>
+        <ID_tym>6</ID_tym>
+        <body>2800</body>
+        <asistence>1000</asistence>
+        <doskoky>500</doskoky>
     </hrac>
 </hraci>
